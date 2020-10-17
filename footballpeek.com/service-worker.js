@@ -1,6 +1,5 @@
 'use strict';
 
-//Sasasas
 const cacheVersion = 'v1';
 
 this.addEventListener('activate', function (event) {
@@ -17,24 +16,21 @@ this.addEventListener('activate', function (event) {
     );
 });
 
+
 this.addEventListener('fetch', function (event) {
     let originalResponse;
 
-    event.respondWith(
-        caches.match(event.request.clone()).then(function (resp) {
-               return resp || fetch(event.request).then(function(response) {
-                   //No Cache, so hitting network..
-                   caches.open(cacheVersion).then(function (cache){
-                       cache.put(event.request.clone(), response.clone());
-                   });
-                   return response.clone();
-               });
-        }).catch(function(error) {
-            //No cache no network 503 service unaivalable..
-            var myBlob = new Blob();
-            var init = { "status" : 503 , "statusText" : "Service Unaivailable!" };
-            var myResponse = new Response(myBlob,init);
-            return myResponse
-        })
-    );
+    event.respondWith(async function () {
+        const cache = await caches.open(cacheVersion)
+
+        const cachedResponsePromise = await cache.match(event.request.clone())
+        const networkResponsePromise = fetch(event.request)
+
+        event.waitUntil(async function () {
+            const networkResponse = await networkResponsePromise
+            await cache.put(event.request.clone(), networkResponse.clone())
+        }())
+
+        return cachedResponsePromise || networkResponsePromise
+    }());
 });
