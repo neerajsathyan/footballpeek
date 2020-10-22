@@ -4,7 +4,7 @@
    "display": "standalone",
    "theme_color": "#074c72",
    "background_color": "#074c72",
-   "start_url":"/footballpeek.com/"
+   "start_url":"/footballpeek.com/",
    "icons": [
       {
          "src": "/footballpeek/footballpeek.com/icon-192x192.png",
