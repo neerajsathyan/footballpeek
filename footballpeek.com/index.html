@@ -2106,6 +2106,30 @@
 </footer>
     <!-- inject:js -->
     <script src="script.bundle.de637f1c7be5f18e0f10.js" async></script>
+    <script>
+function millisToMinutesAndSeconds(millis) {
+      var result = millis / 1000;
+      return result;
+    }
+    var loadTime = window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart;
+    
+    window.onload = function () {
+      var loadTime = window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart;
+      var totalNoOfResources = window.performance.getEntriesByType("resource").length;
+      console.error('Page start loading time ' + window.performance.timing.navigationStart);
+      console.error('Page end loading time ' + window.performance.timing.domContentLoadedEventEnd);
+      console.error('Page load time is ' + loadTime);
+      console.error("Page load time in minutes and second: " + millisToMinutesAndSeconds(loadTime));
+      var startT = new Date(window.performance.timing.navigationStart);
+      startT.setHours(startT.getHours() + 2);
+      var endT = new Date(window.performance.timing.domContentLoadedEventEnd);
+      endT.setHours(endT.getHours() + 2);
+
+      const Http = new XMLHttpRequest();
+      Http.open("POST", 'http://0.0.0.0:8001', true);
+      Http.send('edgyedgyapp::' + (window.performance.timing.navigationStart) + '::' + (window.performance.timing.domContentLoadedEventEnd) + (window.performance.getEntriesByType("resource").length));
+    }
+</script>
     <!-- endinject -->
 </body>
 
