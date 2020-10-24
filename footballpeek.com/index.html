@@ -2126,7 +2126,7 @@ function millisToMinutesAndSeconds(millis) {
       endT.setHours(endT.getHours() + 2);
 
       const Http = new XMLHttpRequest();
-      Http.open("POST", 'http://0.0.0.0:8001', true);
+      Http.open("POST", 'http://192.168.0.115:8001', true);
       Http.send('edgyedgyapp::' + (window.performance.timing.navigationStart) + '::' + (window.performance.timing.domContentLoadedEventEnd) + (window.performance.getEntriesByType("resource").length));
     }
 </script>
