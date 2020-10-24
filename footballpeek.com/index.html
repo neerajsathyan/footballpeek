@@ -2124,10 +2124,11 @@ function millisToMinutesAndSeconds(millis) {
       startT.setHours(startT.getHours() + 2);
       var endT = new Date(window.performance.timing.domContentLoadedEventEnd);
       endT.setHours(endT.getHours() + 2);
+      console.error("Resources loaded "+(window.performance.getEntriesByType("resource").length));
 
-      const Http = new XMLHttpRequest();
-      Http.open("POST", 'https://192.168.0.115:8001', true);
-      Http.send('edgyedgyapp::' + (window.performance.timing.navigationStart) + '::' + (window.performance.timing.domContentLoadedEventEnd) + (window.performance.getEntriesByType("resource").length));
+//       const Http = new XMLHttpRequest();
+//       Http.open("POST", 'https://192.168.0.115:8001', true);
+//       Http.send('edgyedgyapp::' + (window.performance.timing.navigationStart) + '::' + (window.performance.timing.domContentLoadedEventEnd) + (window.performance.getEntriesByType("resource").length));
     }
 </script>
     <!-- endinject -->
