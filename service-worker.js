@@ -24,7 +24,7 @@ this.addEventListener('fetch', function (event) {
                return resp || fetch(event.request).then(function(response) {
                    //No Cache, so hitting network..
                    caches.open(cacheVersion).then(function (cache){
-                       cache.put(event.request.clone(), response.clone());
+                       cache.put(event.request.clone(), response);
                    });
                    return response.clone();
                });
